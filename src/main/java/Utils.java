@@ -22,7 +22,7 @@ public class Utils {
         final String password = "chillcoders";
         String subject = "Welcome to our shop!";
         TreeMap<String, String> tm = processRequest(request);
-        String text = buildResponse(tm);
+        String text = buildResponse(tm, request.headers("Referer"));
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -50,9 +50,14 @@ public class Utils {
 
     }
 
-    public static String buildResponse(TreeMap tm){
+    public static String buildResponse(TreeMap tm, String referer){
         StringBuilder htmlBuilder = new StringBuilder();
-        htmlBuilder.append("<h1 align=\"center\">Thank you for using El Patron services!</h1>");
+        htmlBuilder.append("<h2 align='center'>Hey there,</h2>");
+        if(referer == null){
+            htmlBuilder.append("<h4 align='center'>Someone just submitted a form. Here's what they have to say:</h4>");
+        }else{
+            htmlBuilder.append("<h4 align='center'>Someone just submitted a form on " + referer + "Here's what they have to say:</h4>");
+        }
         htmlBuilder.append("<br>");
         htmlBuilder.append("<table align='center' style='font-family: arial, sans-serif;border-collapse: collapse;width: 90%;'>");
         htmlBuilder.append("<tr><th>Name</th><th>Content</th></tr>");
@@ -74,8 +79,8 @@ public class Utils {
             htmlBuilder.append(" <td style=\"border: 1px solid #dddddd ; text-align: center; padding: 8px;\">" + me.getValue() +"</td>");
             htmlBuilder.append("</tr>");
         }
-
         htmlBuilder.append("</table>");
+        htmlBuilder.append("<h4 align='center'>Thank you for using El Patron services!</h4>");
 
         return htmlBuilder.toString();
     }
