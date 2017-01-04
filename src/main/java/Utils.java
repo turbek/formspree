@@ -16,14 +16,12 @@ public class Utils {
     }
 
 
-    public static void sendMessage(Request request) {
+    public static void sendMessage(Request request, String emailTo) {
 
         final String username = "testerzh1234@gmail.com";
         final String password = "chillcoders";
         String subject = "Welcome to our shop!";
-//        String text = "<div><h1>Thank you for using El Patron services!</h1><br><table><tr><th>Name</th><th>Content</th></tr><tr><td>Name</td><td>" + request.queryParams("name") + "</td></tr></table></div>";
         TreeMap<String, String> tm = processRequest(request);
-        System.out.println(tm);
         String text = buildResponse(tm);
 
         Properties props = new Properties();
@@ -45,7 +43,7 @@ public class Utils {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("andrashinkel@gmail.com"));
+                    InternetAddress.parse(emailTo));
             message.setSubject(subject);
             message.setContent(text, "text/html; charset=utf-8");
 
@@ -71,8 +69,6 @@ public class Utils {
         while(i.hasNext()) {
             counter++;
             Map.Entry me = (Map.Entry)i.next();
-            System.out.print(me.getKey() + ": ");
-            System.out.println(me.getValue());
 
             if(counter % 2 == 1){
                 htmlBuilder.append("<tr>");

@@ -1,14 +1,10 @@
-import db.ConnectionHandler;
-
-import static spark.Spark.*;
+import static spark.Spark.post;
 
 public class Main {
     public static void main(String[] args) {
-
-//        ConnectionHandler connectionHandler = new ConnectionHandler();
-
         post("/:email", (request, response) -> {
-            Utils.sendMessage(request);
+            System.out.println(request.params(":email"));
+            Utils.sendMessage(request, request.params(":email"));
             return "Sikerke";
         });
     }
