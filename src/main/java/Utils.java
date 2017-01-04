@@ -16,7 +16,7 @@ public class Utils {
     }
 
 
-    public static void sendMessage(Request request, String emailTo) {
+    public static void sendMessage(Request request, String emailTo) throws MessagingException {
 
         final String username = "testerzh1234@gmail.com";
         final String password = "chillcoders";
@@ -38,22 +38,16 @@ public class Utils {
                     }
                 });
 
-        try {
 
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(emailTo));
-            message.setSubject(subject);
-            message.setContent(text, "text/html; charset=utf-8");
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(username));
+        message.setRecipients(Message.RecipientType.TO,
+                InternetAddress.parse(emailTo));
+        message.setSubject(subject);
+        message.setContent(text, "text/html; charset=utf-8");
 
-            Transport.send(message);
+        Transport.send(message);
 
-
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
     }
 
     public static String buildResponse(TreeMap tm){
