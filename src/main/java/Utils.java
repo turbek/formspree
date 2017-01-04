@@ -20,7 +20,7 @@ public class Utils {
 
         final String username = "testerzh1234@gmail.com";
         final String password = "chillcoders";
-        String subject = "Welcome to our shop!";
+        String subject = "New form submission";
         TreeMap<String, String> tm = processRequest(request);
         String text = buildResponse(tm, request.headers("Referer"));
 
