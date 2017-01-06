@@ -3,6 +3,7 @@ import spark.Request;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.util.*;
 
 public class Utils {
@@ -16,10 +17,11 @@ public class Utils {
     }
 
 
-    public static void sendMessage(Request request, String emailTo) throws MessagingException {
-
-        final String username = "testerzh1234@gmail.com";
-        final String password = "chillcoders";
+    public static void sendMessage(Request request, String emailTo) throws MessagingException, IOException {
+        ConfigReaderValues properties = new ConfigReaderValues();
+        properties.getPropValues();
+        final String username = properties.getUsername();
+        final String password = properties.getPassword();
         String subject = "New form submission";
         TreeMap<String, String> tm = processRequest(request);
         String text = buildResponse(tm, request.headers("Referer"));
