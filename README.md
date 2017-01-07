@@ -21,3 +21,6 @@ Forget Java and Javascript - no need to write back-end logic, it works even on a
 
 1. Change the action attribute of the form to contain your email.
 2. You are ready to receive emails!
+
+### Javadoc link
+https://turbek.github.io/formspree/
