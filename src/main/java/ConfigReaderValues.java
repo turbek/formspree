@@ -3,21 +3,37 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * ConfigReaderValues class reads the email configurations
+ * from the app.properties files
+ */
 public class ConfigReaderValues {
     private String result = "";
     private String username;
     private String password;
+    private InputStream inputStream;
 
+    /**
+     * @return username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * @return password
+     */
     public String getPassword() {
         return password;
     }
 
-    private InputStream inputStream;
-
+    /**
+     * GetPropValues method reads the app.properties file
+     * and assigns the values for the attributes
+     *
+     * @return String of properties
+     * @throws IOException
+     */
     public String getPropValues() throws IOException {
 
         try {
@@ -32,7 +48,7 @@ public class ConfigReaderValues {
                 throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
             }
 
-            // get the property value and print it out
+            // get the property values
             username = prop.getProperty("username");
             password = prop.getProperty("password");
 

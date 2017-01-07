@@ -6,8 +6,18 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Utils is a class for formspree with static methods
+ * for generating a response message for the email
+ */
 public class Utils {
 
+    /**
+     * processRequest is a static method, which gets the input field names
+     * and the associated values from a request to a TreeMap.
+     * @param request HTTP request
+     * @return TreeMap with the specified fields and values.
+     */
     private static TreeMap processRequest(Request request){
         TreeMap<String, String> tm = new TreeMap<>();
         for(String currentParam : request.body().split("&")) {
@@ -17,6 +27,17 @@ public class Utils {
     }
 
 
+    /**
+     * sendMessage is a static method, which connects to an email account via gmail smtp
+     *
+     * The sendMessage method gets the email information from a properties file.
+     * To use this method, you need to change the subject attribute.
+     *
+     * @param request HTTP request
+     * @param emailTo The receiver email address, whom uses this microservice.
+     * @throws MessagingException
+     * @throws IOException
+     */
     public static void sendMessage(Request request, String emailTo) throws MessagingException, IOException {
         ConfigReaderValues properties = new ConfigReaderValues();
         properties.getPropValues();
@@ -52,7 +73,14 @@ public class Utils {
 
     }
 
-    public static String buildResponse(TreeMap tm, String referer){
+    /**
+     * buildResponse is a static method, which builds the automated response with the StringBuilder.
+     *
+     * @param treeMap TreeMap with the fields and values from an html form.
+     * @param referer Referer from http request if available.
+     * @return String in an HTML format.
+     */
+    public static String buildResponse(TreeMap treeMap, String referer){
         StringBuilder htmlBuilder = new StringBuilder();
         htmlBuilder.append("<h2 align='center'>Hey there,</h2>");
         if(referer == null){
@@ -64,7 +92,7 @@ public class Utils {
         htmlBuilder.append("<table align='center' style='font-family: arial, sans-serif;border-collapse: collapse;width: 90%;'>");
         htmlBuilder.append("<tr><th>Name</th><th>Content</th></tr>");
 
-        Set set = tm.entrySet();
+        Set set = treeMap.entrySet();
         Iterator i = set.iterator();
         int counter = 0;
         while(i.hasNext()) {
