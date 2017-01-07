@@ -37,12 +37,19 @@ public class ConfigReaderValues {
             password = prop.getProperty("password");
 
             result = "result:" + username + " " + password;
-            System.out.println(result);
+
         } catch (Exception e) {
             System.out.println("Exception: " + e);
         } finally {
             inputStream.close();
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ConfigReaderValues{" +
+                "result='" + result + '\'' +
+                '}';
     }
 }

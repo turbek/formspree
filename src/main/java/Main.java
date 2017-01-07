@@ -3,6 +3,7 @@ import static spark.Spark.staticFileLocation;
 
 public class Main {
     public static void main(String[] args) {
+        // TODO: change form.html email!
         staticFileLocation("/");
         post("/:email", (request, response) -> {
             try{
